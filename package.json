@@ -1,17 +1,12 @@
 {
-  "name": "stickers",
-  "version": "1.0.0",
-  "description": "stickers app",
-  "main": "index.js",
-  "scripts": {
-    "start": ""
-  },
-  "keywords": [
-    "app"
-  ],
-  "author": "Philippe Correia",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1"
+    "name": "mangus",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "nodemon index.js"
+    },
+    "keywords": [],
+    "author": "Philippe Correia",
+    "license": "MIT"
   }
-}

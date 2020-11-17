@@ -1,0 +1,8 @@
+acesso: http://172.24.170.120:3000
+
+/ => página inicial
+/accounts => contas registradas
+/accounts/:id => informe um ID, a API retorna o registro daquele ID (se existir)
+/roles => níveis de acesso registrados
+/roles/:role => informe um nível de acesso, a API retorna registros que possuam este nível (se existir)
+/total => informa o total de usuários registrados
