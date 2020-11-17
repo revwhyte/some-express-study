@@ -1,77 +1,101 @@
 const express = require('express')
 const base = require('./test')
-const app = express()
-const PORT = 3000
+const LogMessage = require('./LogMessage')
+const Logger = require('./Logger')
 
-// some data
-// let accounts = [
-//     {
-//       "id": 1,
-//       "username": "paulhal",
-//       "role": "admin"
-//     },
-//     {
-//       "id": 2,
-//       "username": "johndoe",
-//       "role": "guest"
-//     },
-//     {
-//       "id": 3,
-//       "username": "sarahjane",
-//       "role": "guest"
-//     }
-// ];
+const app = express()
+const history = new Logger()
+
+const PORT = 3000
 
 // express settings
 app.use(express.json())
-app.listen(PORT, () => {
-    // console.log(base)
-    console.log(`Express server currently running on port ${PORT}`)
-})
+app.listen(PORT, () => { console.log(`Express server currently running on port ${PORT}`) })
 
 
 // routes
 app.get('/', (req, res) => {
-    res.send("Hello")
+    let msg = new LogMessage()
+    msg.setRoute('/')
+    msg.setVerb('GET')
+    msg.setResult('OK')
+
+    msg.generateMessage()
+
+    history.log(msg)
+    history.logMsg(msg.retrieve())
+
+    console.log(msg.retrieve())
+    res.status(200).send("Hello")
 })
 
-app.get('/accounts', (req, res) => {
+app.get('/log', (req, res) => {
+    res.status(200).json(history.showHistoryMessage())
+})
+
+app.get('/users', (req, res) => {
+    let msg = new LogMessage()
+    msg.setRoute('/users')
+    msg.setVerb('GET')
+    msg.setResult('OK')
+
+    msg.generateMessage()
+
+    history.log(msg)
+
+    console.log(msg.retrieve())
+
     res.json(base)
 })
 
-app.get('/roles', (req, res) => {
-    const roles = []
+app.get('/levels', (req, res) => {
+    const levels = []
     
     base.map(rl => {
-        if(!roles.find(k => k === rl.role)) {
-            roles.push(rl.role)
+        if(!levels.find(k => k === rl.level)) {
+            levels.push(rl.level)
         }
     })
 
-    if(!roles.length) {
-        res.status(500).send(`There are no roles set on accounts registered`)
+    // generate log
+    let msg = new LogMessage()
+    msg.setRoute('/levels')
+    msg.setVerb('GET')
+
+    if(!levels.length) {
+        msg.setResult('FAILED')
+        msg.generateMessage()
+    
+        history.log(msg)
+
+        res.status(500).send(`There are no levels set on users registered`)
     } else {
-        res.json(roles)
+        msg.setResult('OK')
+        msg.generateMessage()
+    
+        history.log(msg)
+
+        res.json(levels)
     }
 })
 
-app.get('/accounts/:id', (req, res) => {
-    const accId = Number(req.params.id)
-    const getAcc = base.find(acc => acc.id === accId)
+app.get('/users/:name', (req, res) => {
+    const usrName = req.params.name.toLowerCase()
+    const getUsr = base.find(k => k.customer.toLowerCase().includes(usrName))
 
-    if(!getAcc) {
-        res.status(500).send(`Account not found for this ID.`)
+    if(!getUsr) {
+        res.status(500).send(`User not found for this name.`)
     } else {
-        res.json(getAcc)
+        res.json(getUsr)
     }
 })
 
-app.get('/roles/:role', (req, res) => {
-    const role = req.params.role
-    const found = base.filter(acc => acc.role === role)
+app.get('/levels/:level', (req, res) => {
+    const lvl = req.params.level
+    const found = base.filter(k => k.level.toLowerCase() === lvl.toLowerCase())
 
     if(!found.length) {
-        res.status(500).send(`Accounts not found for this role.`)
+        res.status(500).send(`Users not found for this level.`)
     } else {
         res.json(found)
     }
@@ -82,5 +106,25 @@ app.get('/total', (req, res) => {
         res.status(500).send(`No users registered.`)
     } else {
         res.json({"registered": base.length })
+    }
+})
+
+// first post try
+app.post('/user/new', (req, res) => {
+    base.sort((i, j) => i.id <= j.id)
+
+    console.log(req.body)
+
+    let novo = req.body
+    let newId = base[base.length - 1].id + 1
+
+    novo.id = newId
+    base[base.length] = novo
+
+    console.log(base)
+    if(base.length !== newId) {
+        res.status(500).send(`New user not registered.`)
+    } else {
+        res.json(novo)
     }
 })

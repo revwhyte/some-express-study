@@ -1,12 +1,25 @@
 {
-    "name": "mangus",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-      "start": "nodemon index.js"
-    },
-    "keywords": [],
-    "author": "Philippe Correia",
-    "license": "MIT"
+  "name": "mangus",
+  "version": "1.0.0",
+  "description": "Learning how to build an API, using Express framework.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "Philippe Correia",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/revwhyte/some-express-study.git"
+  },
+  "bugs": {
+    "url": "https://github.com/revwhyte/some-express-study/issues"
+  },
+  "homepage": "https://github.com/revwhyte/some-express-study#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.15"
   }
+}
