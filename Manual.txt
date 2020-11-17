@@ -1,4 +1,4 @@
-acesso: http://172.24.170.120:3000
+acesso: http://${IP}:3000
 
 / => página inicial
 /accounts => contas registradas
