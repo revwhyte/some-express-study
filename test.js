@@ -3,7 +3,7 @@ const base = [
     {
         "id": 1,
         "customer": "fulano de tal",
-        "level": "P1",
+        "level": 1,
         "banner": {
             "size": "small"
         },
@@ -12,7 +12,7 @@ const base = [
     {
         "id": 2,
         "customer": "beltraninho",
-        "level": "P2",
+        "level": 2,
         "banner": {
             "size": "medium"
         },
@@ -21,7 +21,7 @@ const base = [
     {
         "id": 3,
         "customer": "cicranovski",
-        "level": "P2",
+        "level": 2,
         "banner": {
             "size": "small"
         },
@@ -30,7 +30,7 @@ const base = [
     {
         "id": 4,
         "customer": "Mussum Distribuidora de Bebidis",
-        "level": "P10",
+        "level": 10,
         "banner": {
             "size": "large"
         },
@@ -39,7 +39,7 @@ const base = [
     {
         "id": 5,
         "customer": "fulano de tal",
-        "level": "P1",
+        "level": 1,
         "banner": {
             "size": "small"
         },
@@ -48,7 +48,7 @@ const base = [
     {
         "id": 6,
         "customer": "fulano de tal",
-        "level": "P1",
+        "level": 1,
         "banner": {
             "size": "small"
         },
