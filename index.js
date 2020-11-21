@@ -8,10 +8,6 @@ const PORT = 3000
 const app = express()
 app.use(express.json())
 
-// mongoose.connect('mongodb+srv://test:ki1ZCS3lxv8hmfrC@yt.cylad.mongodb.net/anuncios?retryWrites=true&w=majority', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// })
 
 // app.use(customerRouter)
 
